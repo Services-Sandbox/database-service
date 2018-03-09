@@ -1,0 +1,9 @@
+
+services:
+  - docker
+  - ubuntu
+install:
+  - docker build -t database-service .
+  - docker run -d --name database-service
+script:
+- docker ps | grep -q database-service
