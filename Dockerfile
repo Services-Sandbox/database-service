@@ -35,7 +35,7 @@ RUN echo 'localhost:80 localhost:80/phpmyadmin' >> /etc/hosts
 
 RUN a2enmod rewrite
 RUN echo 'Include /etc/phpmyadmin/apache.conf' >> /etc/apache2/apache2.conf
-
+RUN echo 'localhost http://localhost/phpmyadmin/'
 RUN ln -s /usr/share/phpmyadmin /var/www/html/
 
 
