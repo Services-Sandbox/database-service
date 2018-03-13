@@ -28,14 +28,13 @@ RUN apt-get -qq install phpmyadmin php-mbstring php-gettext -y
 #RUN ln -s /var/www/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages /var/www/phpmyadmin
 #RUN mv /var/www/phpmyadmin/config.sample.inc.php /var/www/phpmyadmin/config.inc.php
 
-RUN echo 'localhost:80 localhost:80/phpmyadmin' >> /etc/hosts
+#RUN echo 'localhost:80 localhost:80/phpmyadmin' >> /etc/hosts
 
 # configurations
 #ADD supporting_files/apache_default /etc/apache2/sites-available/000-default.conf
 
 RUN a2enmod rewrite
 RUN echo 'Include /etc/phpmyadmin/apache.conf' >> /etc/apache2/apache2.conf
-RUN echo 'localhost http://localhost/phpmyadmin/'
 RUN ln -s /usr/share/phpmyadmin /var/www/html/
 
 
