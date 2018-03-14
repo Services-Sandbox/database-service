@@ -59,9 +59,9 @@ RUN chmod -R 775 /var/www/html/sqlbuddy/
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #ADD supporting_files/apache_default /etc/apache2/sites-available/000-default.conf
 
-RUN a2enmod rewrite
-RUN echo 'Include /etc/phpmyadmin/apache.conf' >> /etc/apache2/apache2.conf
-RUN ln -s /usr/share/phpmyadmin /var/www/html/
+#RUN a2enmod rewrite
+#RUN echo 'Include /etc/phpmyadmin/apache.conf' >> /etc/apache2/apache2.conf
+#RUN ln -s /usr/share/phpmyadmin /var/www/html/
 
 
 EXPOSE 80 3306
