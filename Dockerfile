@@ -5,6 +5,9 @@ RUN apt-get -qq update
 RUN apt-get -qq install wget
 RUN apt-get -qq install unzip
 
+
+RUN apt-get -y install php libapache2-mod-php php-mcrypt php-mysql
+
 ENV DEBIAN_FRONTEND noninteractive
 
 
