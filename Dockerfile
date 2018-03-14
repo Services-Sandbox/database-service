@@ -51,7 +51,7 @@ VOLUME /var/lib/mysql
 
 RUN wget https://github.com/calvinlough/sqlbuddy/raw/gh-pages/sqlbuddy.zip
 RUN unzip sqlbuddy.zip -d /var/www/html/
-RUN chown -R apache:apache /var/www/html/sqlbuddy/
+#RUN chown -R apache:apache /var/www/html/sqlbuddy/
 RUN chmod -R 775 /var/www/html/sqlbuddy/
 
 
