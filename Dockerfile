@@ -1,5 +1,6 @@
 
 FROM phusion/baseimage
+FROM mysql
 
 RUN apt-get -qq update
 RUN apt-get -qq install wget
@@ -18,27 +19,43 @@ RUN apt-get -qq install apache2 -y
 
 # installing mysql-server
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ENV MYSQL_ROOT_PASSWORD pass123
+ENV MYSQL_USER root
+
+RUN sed -i 's|/var/lib/mysql|/var/lib/mysql-data|g' /etc/mysql/my.cnf
+
+#RUN apt-get -y install zsh htop
+#RUN echo "mysql-server mysql-server/root_password password pass123" | debconf-set-selections
+#RUN echo "mysql-server mysql-server/root_password_again password pass123" | debconf-set-selections
+
 #RUN apt-get install -y mysql-server
 
-RUN apt-get update \
-    && apt-get install -y apt-utils \                                           
-    && { \
-        echo debconf debconf/frontend select Noninteractive; \
-        echo mysql-community-server mysql-community-server/data-dir \
-            select ''; \
-        echo mysql-community-server mysql-community-server/root-pass \
-            password 'pass123'; \
-        echo mysql-community-server mysql-community-server/re-root-pass \
-            password 'pass123'; \
-        echo mysql-community-server mysql-community-server/remove-test-db \
-            select true; \
-    } | debconf-set-selections \
-    && apt-get install -y mysql-server
+#RUN mysql_secure_installation
 
-RUN chown -R mysql:mysql /etc/mysql/
-RUN chmod -R 755 /etc/mysql/
+#RUN sed -i 's/127\.0\.0\.1/0\.0\.0\.0/g' /etc/mysql/my.cnf
+#RUN mysql -uroot -ppass123 -e 'USE mysql; UPDATE `user` SET `Host`="%" WHERE `User`="root" AND `Host`="localhost"; DELETE FROM `user` WHERE `Host` != "%" AND `User`="root"; FLUSH PRIVILEGES;'
 
-VOLUME /var/lib/mysql
+
+
+#RUN apt-get update \
+#    && apt-get install -y apt-utils \                                           
+#    && { \
+#        echo debconf debconf/frontend select Noninteractive; \
+#        echo mysql-community-server mysql-community-server/data-dir \
+#            select ''; \
+#        echo mysql-community-server mysql-community-server/root-pass \
+#            password 'pass123'; \
+#        echo mysql-community-server mysql-community-server/re-root-pass \
+#            password 'pass123'; \
+#        echo mysql-community-server mysql-community-server/remove-test-db \
+#            select true; \
+#    } | debconf-set-selections \
+#    && apt-get install -y mysql-server
+
+#RUN chown -R mysql:mysql /etc/mysql/
+#RUN chmod -R 755 /etc/mysql/
+
+#VOLUME /var/lib/mysql
 
 # installing phpmyadmin on top of mysql-server
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
